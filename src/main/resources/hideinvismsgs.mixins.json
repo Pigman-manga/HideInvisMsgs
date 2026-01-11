@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "bluebird.hideinvismsgs.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "DamageSourceMixin",
+    "CombatTrackerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

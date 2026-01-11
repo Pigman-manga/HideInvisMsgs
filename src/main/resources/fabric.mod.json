@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "hideinvismsgs",
+  "version": "${version}",
+  "name": "Hide Invis Msgs",
+  "description": "Obfuscates death messages and kill messages that invisible players get. Can be edited through gamerule commands.\n /gamerule hideinvismsgs:obfuscate_invis_deaths \n /gamerule hideinvismsgs:obfuscate_invis_kills",
+  "authors": ["BluebirdDevs"],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/hideinvismsgs/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "bluebird.hideinvismsgs.HideInvisMsgs"
+    ]
+  },
+  "mixins": [
+    "hideinvismsgs.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
