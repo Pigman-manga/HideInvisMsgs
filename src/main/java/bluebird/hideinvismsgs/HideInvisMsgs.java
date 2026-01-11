@@ -2,7 +2,13 @@ package bluebird.hideinvismsgs;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.slf4j.Logger;
@@ -25,5 +31,24 @@ public class HideInvisMsgs implements ModInitializer {
 
     public void onInitialize() {
         LOGGER.info("HideInvisDeaths initialed");
+    }
+
+    public static Component hideinvismsgs$ObfuscateOrNormalDeaths(LivingEntity livingEntity) {
+        return hideinvismsgs$ObfuscateOrNormalDeaths((Entity) livingEntity);
+    }
+
+
+    public static Component hideinvismsgs$ObfuscateOrNormalDeaths(Entity livingEntity) {
+        boolean enabled = false;
+        if (livingEntity == null) return null;
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
+            enabled = serverLevel
+                    .getGameRules()
+                    .get(HideInvisMsgs.OBFUSCATED_INVIS_DEATHS);
+        }
+        if (enabled && livingEntity instanceof Player && livingEntity.isInvisible()) {
+            return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
+        }
+        return livingEntity.getDisplayName();
     }
 }

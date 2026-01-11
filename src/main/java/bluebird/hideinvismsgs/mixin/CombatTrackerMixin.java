@@ -17,45 +17,21 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class CombatTrackerMixin {
     @Redirect(method = "getDeathMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDisplayName()Lnet/minecraft/network/chat/Component;"))
     public Component hideInvisMsgs$getDisplayName(LivingEntity livingEntity) {
-        return hideinvismsgs$ObfuscateOrNormal(livingEntity);
+        return HideInvisMsgs.hideinvismsgs$ObfuscateOrNormalDeaths(livingEntity);
     }
 
     @Redirect(method = "getFallMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDisplayName()Lnet/minecraft/network/chat/Component;"))
     public Component hideInvisMsgs$getFallMessage(LivingEntity livingEntity) {
-        return hideinvismsgs$ObfuscateOrNormal(livingEntity);
+        return HideInvisMsgs.hideinvismsgs$ObfuscateOrNormalDeaths(livingEntity);
     }
 
     @Redirect(method = "getFallMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/CombatTracker;getDisplayName(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/network/chat/Component;"))
     public Component hideInvisMsgs$getFallMessage(Entity entity) {
-        if (entity == null) return null;
-        boolean enabled = false;
-        if (entity.level() instanceof ServerLevel serverLevel) {
-            enabled = serverLevel
-                    .getGameRules()
-                    .get(HideInvisMsgs.OBFUSCATED_INVIS_DEATHS);
-        }
-        if (enabled && entity instanceof Player && entity.isInvisible()) {
-            return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
-        }
-        return entity.getDisplayName();
+        return HideInvisMsgs.hideinvismsgs$ObfuscateOrNormalDeaths(entity);
     }
 
     @Redirect(method = "getMessageForAssistedFall", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDisplayName()Lnet/minecraft/network/chat/Component;"))
     public Component hideInvisMsgs$getMessageForAssistedFall(LivingEntity livingEntity) {
-        return hideinvismsgs$ObfuscateOrNormal(livingEntity);
-    }
-
-    @Unique
-    public Component hideinvismsgs$ObfuscateOrNormal(LivingEntity livingEntity) {
-        boolean enabled = false;
-        if (livingEntity.level() instanceof ServerLevel serverLevel) {
-            enabled = serverLevel
-                    .getGameRules()
-                    .get(HideInvisMsgs.OBFUSCATED_INVIS_DEATHS);
-        }
-        if (enabled && livingEntity instanceof Player && livingEntity.isInvisible()) {
-            return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
-        }
-        return livingEntity.getDisplayName();
+        return HideInvisMsgs.hideinvismsgs$ObfuscateOrNormalDeaths(livingEntity);
     }
 }

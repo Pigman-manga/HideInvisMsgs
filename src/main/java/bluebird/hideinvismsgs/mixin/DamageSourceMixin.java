@@ -18,16 +18,7 @@ public class DamageSourceMixin {
 
     @Redirect(method = "getLocalizedDeathMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getDisplayName()Lnet/minecraft/network/chat/Component;"))
     public Component hideInvisMsgs$hideInvisDeaths(LivingEntity livingEntity) {
-        boolean enabled = false;
-        if (livingEntity.level() instanceof ServerLevel serverLevel) {
-            enabled = serverLevel
-                    .getGameRules()
-                    .get(HideInvisMsgs.OBFUSCATED_INVIS_DEATHS);
-        }
-        if (enabled && livingEntity instanceof Player && livingEntity.isInvisible()) {
-            return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
-        }
-        return livingEntity.getDisplayName();
+        return HideInvisMsgs.hideinvismsgs$ObfuscateOrNormalDeaths(livingEntity);
     }
 
     @Redirect(

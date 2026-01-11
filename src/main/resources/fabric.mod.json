@@ -5,7 +5,11 @@
   "name": "Hide Invis Msgs",
   "description": "Obfuscates death messages and kill messages that invisible players get. Can be edited through gamerule commands.\n /gamerule hideinvismsgs:obfuscate_invis_deaths \n /gamerule hideinvismsgs:obfuscate_invis_kills",
   "authors": ["BluebirdDevs"],
-  "contact": {},
+  "contact": {
+    "homepage": "https://modrinth.com/mod/hide-invis-msgs",
+    "sources": "https://github.com/BluebirdDevs/HideInvisMsgs",
+    "issues": "https://github.com/BluebirdDevs/HideInvisMsgs/issues"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/hideinvismsgs/icon.png",
   "environment": "*",
@@ -20,6 +24,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": ">=${minecraft_version}"
   }
 }
