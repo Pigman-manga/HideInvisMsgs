@@ -9,6 +9,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.slf4j.Logger;
@@ -46,9 +48,18 @@ public class HideInvisMsgs implements ModInitializer {
                     .getGameRules()
                     .get(HideInvisMsgs.OBFUSCATED_INVIS_DEATHS);
         }
-        if (enabled && livingEntity instanceof Player && livingEntity.isInvisible()) {
+        if (enabled && hideinvismsgs$HasStrongInvisibility(livingEntity)) {
             return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
         }
         return livingEntity.getDisplayName();
+    }
+
+    public static boolean hideinvismsgs$HasStrongInvisibility(Entity entity) {
+        if (!(entity instanceof Player player)) {
+            return false;
+        }
+
+        MobEffectInstance invisibility = player.getEffect(MobEffects.INVISIBILITY);
+        return invisibility != null && invisibility.getAmplifier() >= 1;
     }
 }
