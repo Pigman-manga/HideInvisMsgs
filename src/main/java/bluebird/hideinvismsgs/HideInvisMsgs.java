@@ -2,12 +2,9 @@ package bluebird.hideinvismsgs;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.ChatFormatting;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +30,9 @@ public class HideInvisMsgs implements ModInitializer {
     }
 
     public static boolean hideinvismsgs$hasInvisibilityTwoOrHigher(Entity entity) {
-        if (!(entity instanceof Player player)) return false;
-        MobEffectInstance invisibility = player.getEffect(MobEffects.INVISIBILITY);
-        return invisibility != null && invisibility.getAmplifier() >= 1;
+        if (!(entity instanceof LivingEntity livingEntity)) return false;
+        return livingEntity.getActiveEffects().stream().anyMatch(effect ->
+                "effect.minecraft.invisibility".equals(effect.getDescriptionId()) && effect.getAmplifier() >= 1
+        );
     }
 }
