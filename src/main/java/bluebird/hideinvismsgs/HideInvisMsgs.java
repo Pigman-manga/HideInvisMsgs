@@ -3,7 +3,6 @@ package bluebird.hideinvismsgs;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,18 +25,13 @@ public class HideInvisMsgs implements ModInitializer {
 
     public static Component hideinvismsgs$ObfuscateOrNormalDeaths(Entity livingEntity) {
         if (livingEntity == null) return null;
-        if (livingEntity instanceof Player && hideinvismsgs$hasStrongInvisibility(livingEntity)) {
+        if (livingEntity instanceof Player && hideinvismsgs$hasInvisibility(livingEntity)) {
             return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
         }
         return livingEntity.getDisplayName();
     }
 
-    public static boolean hideinvismsgs$hasStrongInvisibility(Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return false;
-        }
-
-        MobEffectInstance invisibility = livingEntity.getEffect(MobEffects.INVISIBILITY);
-        return invisibility != null && invisibility.getAmplifier() >= 1;
+    public static boolean hideinvismsgs$hasInvisibility(Entity entity) {
+        return entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.INVISIBILITY);
     }
 }

@@ -27,7 +27,7 @@ public class DamageSourceMixin {
             )
     )
     private Component hideInvisMsgs$hideInvisKills(Entity killer) {
-        if (killer instanceof Player && HideInvisMsgs.hideinvismsgs$hasStrongInvisibility(killer)) {
+        if (killer instanceof Player && HideInvisMsgs.hideinvismsgs$hasInvisibility(killer)) {
             return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
         }
         return killer.getDisplayName();
