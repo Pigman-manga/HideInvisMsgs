@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -27,7 +26,7 @@ public class DamageSourceMixin {
             )
     )
     private Component hideInvisMsgs$hideInvisKills(Entity killer) {
-        if (killer instanceof Player && killer.isInvisible()) {
+        if (HideInvisMsgs.hideinvismsgs$hasInvisibilityTwoOrHigher(killer)) {
             return Component.literal("Obfuscated").withStyle(ChatFormatting.OBFUSCATED);
         }
         return killer.getDisplayName();
