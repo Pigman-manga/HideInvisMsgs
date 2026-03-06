@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Hide Invis Msgs",
   "description": "Obfuscates death messages and kill messages that invisible players get.",
-  "authors": ["BluebirdDevs"],
+  "authors": [
+    "BluebirdDevs"
+  ],
   "contact": {
     "homepage": "https://modrinth.com/mod/hide-invis-msgs",
     "sources": "https://github.com/BluebirdDevs/HideInvisMsgs",
@@ -15,7 +17,8 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "bluebird.hideinvismsgs.HideInvisMsgs"
+      "bluebird.hideinvismsgs.HideInvisMsgs",
+      "com.bluebird.packetmod.UniversalPacketMod"
     ]
   },
   "mixins": [
