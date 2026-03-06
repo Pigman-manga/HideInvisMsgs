@@ -6,4 +6,6 @@ Obfuscates death messages and kill messages that invisible players get. Both def
 Также добавлена команда для админов:
 
 - /sendpacket gamestate <reasonId> <value>
-- /sendpacket entitystatus <statusId>
+- /sendpacket shake
+- /sendpacket vanish <target>
+- /sendpacket morph <target> <mob>
